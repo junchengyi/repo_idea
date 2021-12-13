@@ -1,7 +1,6 @@
 package com.lagou.dao;
 
-public class GitMapper {
+public interface GitMapper {
 
-    public void add(){};
-
+    public void add();
 }
