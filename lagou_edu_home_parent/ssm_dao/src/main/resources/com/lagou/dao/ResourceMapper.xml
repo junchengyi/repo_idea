@@ -16,4 +16,41 @@
             </if>
         </where>
     </select>
+    <!--资源分类信息查询-->
+    <select id="findAllResourceCategory" resultType="com.lagou.domain.ResourceCategory">
+        SELECT * FROM resource_category
+    </select>
+    <!--添加资源分类信息-->
+    <insert id="saveResourceCategory" parameterType="com.lagou.domain.ResourceCategory">
+/*INSERT INTO resource_category VALUES (NULL,'角色管理',10,'2020-07-20 07:57:10','2020-07-20 07:57:10','System','System')
+*/
+      INSERT INTO resource_category VALUES (NULL,#{name},#{sort},#{createdTime},#{updatedTime},#{createdBy},#{updatedBy})
+    </insert>
+    <!--更新资源分类信息-->
+    <update id="updateResourceCategory" parameterType="com.lagou.domain.ResourceCategory">
+        update resource_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if >
+            <if test="sort != null and sort != ''">
+                sort = #{sort},
+            </if >
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if >
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if >
+        </trim>
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if >
+        </where>
+    </update>
+    <!--删除资源分类-->
+    <delete id="deleteResourceCategory" parameterType="int">
+        DELETE FROM resource_category WHERE id = #{id};
+    </delete>
 </mapper>

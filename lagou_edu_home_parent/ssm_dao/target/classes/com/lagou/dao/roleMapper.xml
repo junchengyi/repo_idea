@@ -37,4 +37,36 @@
     <delete id="deleteRole" parameterType="int">
         delete from roles where id = #{id}
     </delete>
+    <!--查询当前角色的所有资源分类信息-->
+    <!-- private Integer id;
+    private String name;
+    private Integer sort;
+    private Date createdTime;
+    private Date updatedTime;
+    private String createdBy;
+    private String updatedBy;-->
+    <resultMap id="AllResourceCategory" type="com.lagou.domain.ResourceCategory">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="sort" property="sort"></result>
+        <result column="created_time" property="createdTime"></result>
+        <result column="updated_time" property="updatedTime"></result>
+        <result column="created_by" property="createdBy"></result>
+        <result column="updated_by" property="updatedBy"></result>
+        <collection property="resourceList" ofType="com.lagou.domain.Resource" select="findRoleAllResource" column="id"></collection>
+    </resultMap>
+    <select id="findRoleAllResourceCategory" parameterType="int" resultMap="AllResourceCategory">
+            SELECT DISTINCT rc.* FROM roles ro
+            INNER JOIN role_resource_relation rr ON ro.`id`=rr.`role_id`
+            INNER JOIN resource r ON rr.`resource_id`=r.`id`
+            INNER JOIN resource_category rc ON r.`category_id`=rc.`id`
+            WHERE ro.`id`=#{roleId}
+    </select>
+    <!--查询当前角色的所有资源信息-->
+    <select id="findRoleAllResource" parameterType="int" resultType="com.lagou.domain.Resource">
+        SELECT r.* FROM
+        resource r INNER JOIN resource_category rc
+        ON r.`category_id`=rc.`id`
+        WHERE r.`category_id`=#{categoryId}
+    </select>
 </mapper>
