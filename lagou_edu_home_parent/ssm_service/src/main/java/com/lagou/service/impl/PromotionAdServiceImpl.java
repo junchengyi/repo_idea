@@ -20,24 +20,22 @@ public class PromotionAdServiceImpl implements PromotionAdService {
 
     @Override
     public PageInfo findAllAdByPage(PromotionAdVo adVo) {
-
         PageHelper.startPage(adVo.getCurrentPage(),adVo.getPageSize());
         List<PromotionAd> allByPage = AdMapper.findAllByPage();
         PageInfo<PromotionAd> pageInfo = new PageInfo<>(allByPage);
         return pageInfo;
+
     }
 
     @Override
     public void savePromotionAd(PromotionAd promotionAd) {
-        Date date = new Date();
-        promotionAd.setCreateTime(date);
-        promotionAd.setUpdateTime(date);
+
         AdMapper.savePromotionAd(promotionAd);
     }
 
     @Override
     public void updatePromotionAd(PromotionAd promotionAd) {
-        promotionAd.setUpdateTime(new Date());
+
         AdMapper.updatePromotionAd(promotionAd);
     }
 

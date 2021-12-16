@@ -35,9 +35,9 @@ public class CourseContentController {
     public ResponseResult findCourseByCourseId(@RequestParam int courseId) {
         Course course = courseContentService.findCourseByCourseId(courseId);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("id",course.getId());
-        map.put("courseName",course.getCourseName());
-        ResponseResult result = new ResponseResult(true, 200, "响应成功", map);
+       /* map.put("id",course.getId());
+        map.put("courseName",course.getCourseName());*/
+        ResponseResult result = new ResponseResult(true, 200, "响应成功", course);
         return result;
     }
     /*http://localhost:8080/ssm-web/courseContent/saveOrUpdateSection*/
@@ -64,8 +64,9 @@ public class CourseContentController {
         return result;
     }
     /*http://localhost:8080/ssm-web/courseContent/saveLesson */
-    @RequestMapping("/saveLesson")
+    @RequestMapping("/saveOrUpdateLesson")
     public ResponseResult saveLesson(@RequestBody CourseLesson courseLesson) {
+        System.out.println(courseLesson);
         if (courseLesson.getId()== null){
             courseContentService.saveLesson(courseLesson);
             ResponseResult result = new ResponseResult(true, 200, "响应成功", null);

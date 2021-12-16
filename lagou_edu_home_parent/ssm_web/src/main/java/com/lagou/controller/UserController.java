@@ -28,8 +28,10 @@ public class UserController {
     @RequestMapping("/findAllUserByPage")
     public ResponseResult findAllUserByPage(@RequestBody UserVo userVo) {
         PageInfo pageInfo = userService.findAllUserByPage(userVo);
-        System.out.println(pageInfo.getList());
-        return new ResponseResult(true, 200, "查询成功", pageInfo);
+        ResponseResult responseResult = new ResponseResult(true, 200, "响应成功", pageInfo);
+        List<User> list = pageInfo.getList();
+        System.out.println(list);
+        return responseResult;
     }
 
     /**
@@ -61,9 +63,9 @@ public class UserController {
             HttpSession session = request.getSession();
             session.setAttribute("access_token", access_token);
             session.setAttribute("user_id", login.getId());
-            return new ResponseResult(true, 200, "登录成功", map);
+            return new ResponseResult(true, 1, "登录成功", map);
         } else {
-            return new ResponseResult(true, 200, "登录失败", null);
+            return new ResponseResult(false, 0, "登录失败", null);
         }
     }
 
@@ -84,25 +86,24 @@ public class UserController {
 
 
     @RequestMapping("/getUserPermissions")
-    public ResponseResult getUserPermissions(HttpServletRequest request){
+    public ResponseResult getUserPermissions(HttpServletRequest request) {
         //获取请求头中的 token
         String token = request.getHeader("Authorization");
         System.out.println(token);
         //获取session中的access_token
         HttpSession session = request.getSession();
-        String access_token = (String)session.getAttribute("access_token");
+        String access_token = (String) session.getAttribute("access_token");
         System.out.println(access_token);
         //判断
-        if(token.equals(access_token)){
-            int user_id = (Integer)session.getAttribute("user_id");
+        if (token.equals(access_token)) {
+            int user_id = (Integer) session.getAttribute("user_id");
             ResponseResult result = userService.getUserPermissions(user_id);
             return result;
-        }else{
-            ResponseResult result = new ResponseResult(false,400,"获取失败","");
+        } else {
+            ResponseResult result = new ResponseResult(false, 400, "获取失败", "");
             return result;
         }
     }
-
 
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class PromotionAdController {
 
     /*广告分页查询*/
     /*http://localhost:8080/ssm-web/PromotionAd/findAllPromotionAdByPage*/
-    @RequestMapping("/findAllPromotionAdByPage")
+    @RequestMapping("/findAllPromotionAd")
     public ResponseResult findAllPromotionAdByPage(PromotionAdVo promotionAdVo){
         PageInfo allAdByPage = promotionAdService.findAllAdByPage(promotionAdVo);
         return new ResponseResult(true,200,"分页查询广告成功",allAdByPage);
@@ -64,17 +65,36 @@ public class PromotionAdController {
     }
     /*保存更新广告位*/
     /*http://localhost:8080/ssm-web/PromotionAd/saveOrUpdatePromotionAd*/
+     /*
+        新增或更新广告位置
+     */
     @RequestMapping("/saveOrUpdatePromotionAd")
-    public ResponseResult saveOrUpdatePromotionAd(@RequestBody PromotionAd promotionAd){
-        if(promotionAd.getId()==null){
-            promotionAdService.savePromotionAd(promotionAd);
-            ResponseResult result = new ResponseResult(true, 200, "响应成功", promotionAd);
-            return result;
-        }else {
-            promotionAdService.updatePromotionAd(promotionAd);
-            ResponseResult result = new ResponseResult(true, 200, "响应成功", promotionAd);
-            return result;
+    public ResponseResult saveOrUpdatePromotionAd(@RequestBody PromotionAd promotionAd) {
+
+        try {
+
+            if (promotionAd.getId() == null) {
+                Date date = new Date();
+                promotionAd.setCreateTime(date);
+                promotionAd.setUpdateTime(date);
+
+                promotionAdService.savePromotionAd(promotionAd);
+                ResponseResult result = new ResponseResult(true, 200, "响应成功", null);
+                return result;
+
+            } else {
+                Date date = new Date();
+                promotionAd.setUpdateTime(date);
+
+                promotionAdService.updatePromotionAd(promotionAd);
+                ResponseResult result = new ResponseResult(true, 200, "响应成功", null);
+                return result;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
     /**
      * 根据id回显 广告数据

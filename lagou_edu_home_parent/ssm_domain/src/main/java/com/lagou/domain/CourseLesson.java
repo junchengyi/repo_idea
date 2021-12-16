@@ -39,6 +39,23 @@ public class CourseLesson {
     //状态
     private int status;
 
+    @Override
+    public String toString() {
+        return "CourseLesson{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", sectionId=" + sectionId +
+                ", theme='" + theme + '\'' +
+                ", duration=" + duration +
+                ", isFree=" + isFree +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", isDel=" + isDel +
+                ", orderNum=" + orderNum +
+                ", status=" + status +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

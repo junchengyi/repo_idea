@@ -72,4 +72,39 @@ public class ResourceServiceImpl implements ResourceService {
     public void deleteResourceCategory(Integer id) {
         resourceMapper.deleteResourceCategory(id);
     }
+
+    /*
+        添加资源
+     */
+    @Override
+    public void saveResource(Resource resource) {
+
+        resource.setCreatedTime(new Date());
+        resource.setUpdatedTime(new Date());
+        resource.setCreatedBy("system");
+        resource.setUpdatedBy("system");
+
+
+        resourceMapper.saveResource(resource);
+    }
+
+    /*
+        更新资源
+     */
+    @Override
+    public void updateResource(Resource resource) {
+
+        resource.setCreatedTime(new Date());
+        resource.setUpdatedTime(new Date());
+        resource.setCreatedBy("system");
+        resource.setUpdatedBy("system");
+
+        resourceMapper.updateResource(resource);
+    }
+
+
+    @Override
+    public void deleteResource(Integer id) {
+        resourceMapper.deleteResource(id);
+    }
 }

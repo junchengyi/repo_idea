@@ -69,4 +69,65 @@
         ON r.`category_id`=rc.`id`
         WHERE r.`category_id`=#{categoryId}
     </select>
+    <!---->
+    <delete id="deleteRoleResource" parameterType="int">
+        DELETE FROM role_resource_relation WHERE role_id= #{roleId}
+    </delete>
+    <!---->
+    <insert id="roleResourceRelation" parameterType="com.lagou.domain.RoleResourceRelation">
+        /* private Integer id;
+    private Integer resourceId;
+    private Integer roleId;
+    private Date createdTime;
+    private Date updatedTime;
+    private String createdBy;
+    private String updatedby;*/
+        INSERT INTO role_resource_relation VALUES (NULL,#{resourceId},#{roleId},#{createdTime},#{updatedTime},#{createdBy},#{updatedby})
+    </insert>
+
+    <!--添加角色-->
+    <insert id="saveRole" parameterType="com.lagou.domain.Role">
+        insert into Roles values(null,#{code},#{name},#{description},#{createdTime},#{updatedTime},#{createdBy},#{updatedBy})
+    </insert>
+
+
+
+    <update id="updateRole" parameterType="com.lagou.domain.Role" >
+        update Roles
+
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+
+            <if test="createdTime != null">
+                created_time=#{createdTime},
+            </if>
+
+            <if test="updatedTime != null">
+                updated_time=#{updatedTime},
+            </if>
+
+            <if test="createdBy != null">
+                created_by=#{createdBy},
+            </if>
+
+            <if test="updatedBy != updatedBy">
+                updated_by=#{updatedBy},
+            </if>
+
+        </trim>
+
+        <where>
+            <if test="id != null and id != '' ">id = #{id}</if>
+        </where>
+    </update>
 </mapper>

@@ -54,7 +54,7 @@
     <!--根据ID查询-->
     <select id="findCourseById" parameterType="int" resultType="com.lagou.domain.CourseVo">
         SELECT
-        id,
+        course.`id`,
         course_name,
         brief,
         teacher_name,

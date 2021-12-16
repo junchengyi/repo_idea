@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/role")
@@ -30,7 +32,10 @@ public class RoleController {
     @RequestMapping("/findAllMenu")
     public ResponseResult findAllMenu() {
         List<Menu> List = menuService.findSubMenuListByPid(-1);
-        ResponseResult result = new ResponseResult(true, 200, "查询角色成功", List);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("parentMenuList",List);
+        ResponseResult result = new ResponseResult(true, 200, "响应成功", map);
         return result;
     }
 
@@ -64,5 +69,26 @@ public class RoleController {
         List<ResourceCategory> roleResource = roleService.findRoleResourceCategoryById(roleId);
         ResponseResult result = new ResponseResult(true, 200, "响应成功", roleResource);
         return result;
+    }
+
+    @RequestMapping("/roleContextResource")
+    public ResponseResult roleContextResource(@RequestBody RoleResourceVo roleResourceVo){
+        roleService.RoleContextResourceCategory(roleResourceVo);
+        ResponseResult result = new ResponseResult(true, 200, "响应成功", roleResourceVo);
+        return result;
+    }
+
+    @RequestMapping("/saveOrUpdateRole")
+    public ResponseResult saveRole(@RequestBody Role role){
+
+        if(role.getId() == null){
+            roleService.saveRole(role);
+        }else {
+            roleService.updateRole(role);
+        }
+
+
+        ResponseResult responseResult = new ResponseResult(true,200,"响应成功","");
+        return responseResult;
     }
 }

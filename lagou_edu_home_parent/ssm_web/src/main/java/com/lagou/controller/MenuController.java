@@ -1,10 +1,13 @@
 package com.lagou.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.lagou.domain.Menu;
+import com.lagou.domain.MenuVo;
 import com.lagou.domain.ResponseResult;
 import com.lagou.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +23,8 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping("/findAllMenu")
-    public ResponseResult findAllMenu(){
-        List<Menu> allMenu = menuService.findAllMenu();
+    public ResponseResult findAllMenu(MenuVo menuVo){
+        PageInfo<Menu> allMenu = menuService.findAllMenu(menuVo);
         return new ResponseResult(true,200,"查询所有菜单成功",allMenu);
     }
 
@@ -40,5 +43,30 @@ public class MenuController {
           map.put("parentMenuList",list);
           return new ResponseResult(true,200,"查询所有菜单成功",map);
       }
+    }
+
+
+    /**
+     * 新建&修改菜单
+     * */
+    @RequestMapping("/saveOrUpdateMenu")
+    public ResponseResult saveOrUpdateMenu(@RequestBody Menu menu) {
+
+        try {
+            if(menu.getId() != null){
+                //修改操作
+                menuService.updateMenu(menu);
+                ResponseResult result = new ResponseResult(true,200,"响应成功",null);
+                return result;
+            }else{
+                //新增操作
+                menuService.saveMenu(menu);
+                ResponseResult result = new ResponseResult(true,200,"响应成功",null);
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

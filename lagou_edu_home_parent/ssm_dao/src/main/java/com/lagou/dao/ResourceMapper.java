@@ -25,4 +25,11 @@ public interface ResourceMapper {
     public void deleteResourceCategory(Integer id);
 
 
+    void saveResource(Resource resource);
+
+    void updateResource(Resource resource);
+
+    void deleteResource(Integer id);
+
+
 }

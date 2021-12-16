@@ -23,19 +23,23 @@
     </resultMap>
     <select id="findSectionAndLessonByCourseId" parameterType="int" resultMap="base">
             SELECT cs.*,
-                cl.id AS lessonId,
-                cl.course_id,
-                cl.section_id,
-                cl.theme,
-                cl.duration,
-                cl.is_free,
-                cl.order_num,
-                cl.status
+                <include refid="lesson_column_list"/>
                 FROM
                 course_section cs LEFT JOIN course_lesson cl
-                ON cs.`id`=cl.`id` WHERE cs.`course_id`= #{courseid} ORDER BY
+                ON cs.`id`=cl.section_id WHERE cs.`course_id`= #{courseid} ORDER BY
                 cs.`order_num`;
     </select>
+    <!-- 课时表字段信息   -->
+    <sql id="lesson_column_list">
+        cl.id as lessonId,
+        cl.course_id,
+        cl.section_id,
+        cl.theme,
+        cl.duration,
+        cl.is_free,
+        cl.order_num,
+        cl.status
+    </sql>
     <!--回显课程信息-->
     <select id="findCourseByCourseId" parameterType="int" resultType="com.lagou.domain.Course">
             SELECT id,course_name FROM course WHERE id =#{courseId};

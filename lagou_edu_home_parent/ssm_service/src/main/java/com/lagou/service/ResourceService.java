@@ -14,6 +14,13 @@ public interface ResourceService {
 
 
 
+    void saveResource(Resource resource);
+
+    void updateResource(Resource resource);
+
+    void deleteResource(Integer id);
+
+
     /*资源分类信息查询*/
     public List<ResourceCategory> findAllResourceCategory();
 

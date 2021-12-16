@@ -30,4 +30,33 @@ public class ResourceController {
 
 
 
+    /*
+        添加&编辑
+     */
+    @RequestMapping("/saveOrUpdateResource")
+    public ResponseResult saveOrUpdateResource(@RequestBody Resource resource){
+
+        if(resource.getId() ==null ){
+            resourceService.saveResource(resource);
+        }else {
+            resourceService.updateResource(resource);
+        }
+
+        ResponseResult responseResult = new ResponseResult(true,200,"响应成功","");
+        return responseResult;
+    }
+
+
+    @RequestMapping("/deleteResource")
+    public ResponseResult deleteResource(Integer id){
+
+        resourceService.deleteResource(id);
+        ResponseResult responseResult = new ResponseResult(true,200,"响应成功","");
+        return responseResult;
+    }
+
+
+
+
+
 }

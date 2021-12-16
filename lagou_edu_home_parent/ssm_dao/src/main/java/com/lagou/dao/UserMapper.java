@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserMapper {
-    /*分页查询用户*/
+    /* 查询所有用户 */
     public List<User> findAllUserByPage(UserVo userVo);
 
     /**

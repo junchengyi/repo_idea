@@ -1,8 +1,6 @@
 package com.lagou.service;
 
-import com.lagou.domain.ResourceCategory;
-import com.lagou.domain.Role;
-import com.lagou.domain.RoleMenuVo;
+import com.lagou.domain.*;
 
 import java.util.List;
 
@@ -22,4 +20,11 @@ public interface RoleService {
 
     /*查询角色资源分类及资源信息*/
     public List<ResourceCategory> findRoleResourceCategoryById(Integer roleId);
+
+    /*为角色分配资源*/
+    public void RoleContextResourceCategory(RoleResourceVo roleResourceVo);
+
+    public void saveRole(Role role);
+
+    public void updateRole(Role role);
 }

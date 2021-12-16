@@ -26,7 +26,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
     /*多条件课程查询*/
-    @RequestMapping("/findCourseByCondition")
+    @RequestMapping("/findAllCourse")
     public ResponseResult findCourseByCondition(@RequestBody CourseVo courseVo){
         List<Course> courseList = courseService.findCourseByCondition(courseVo);
         ResponseResult result = new ResponseResult(true, 200, "响应成功", courseList);
