@@ -5,15 +5,18 @@
     <select id="findAllResource" parameterType="com.lagou.domain.ResourceVo" resultType="com.lagou.domain.Resource">
         select * from resource
         <where>
-            <if test="name != null">
-                and name like concat('%',#{name},'%')
+            <if test="name != null and name != '' ">
+                and name like  concat('%',#{name},'%')
             </if>
-            <if test="url != null">
-                and url = url
+
+            <if test="url != null and url != '' ">
+                and url = #{url}
             </if>
+
             <if test="categoryId != null">
                 and category_id = #{categoryId}
             </if>
+
         </where>
     </select>
     <!--资源分类信息查询-->
@@ -85,9 +88,14 @@
                 created_by=#{createdBy},
             </if>
 
-            <if test="updatedBy != updatedBy">
+            <if test="updatedBy != null ">
                 updated_by=#{updatedBy},
             </if>
+
+            <if test="description != null ">
+                description=#{description},
+            </if>
+
 
         </trim>
 

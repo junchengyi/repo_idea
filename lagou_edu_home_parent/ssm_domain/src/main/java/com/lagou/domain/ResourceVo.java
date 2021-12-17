@@ -8,6 +8,12 @@ public class ResourceVo {
     private Integer pageSize;
     private String url;
 
+   /*categoryId: 1
+     currentPage: 6
+     name: ""
+     pageSize: 20
+     url: null*/
+
     public Integer getCategoryId() {
         return categoryId;
     }

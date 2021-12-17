@@ -28,6 +28,7 @@ public class CourseController {
     /*多条件课程查询*/
     @RequestMapping("/findAllCourse")
     public ResponseResult findCourseByCondition(@RequestBody CourseVo courseVo){
+        System.out.println(courseVo.getCourseName()+"-----------"+courseVo.getStatus());
         List<Course> courseList = courseService.findCourseByCondition(courseVo);
         ResponseResult result = new ResponseResult(true, 200, "响应成功", courseList);
         return result;
@@ -70,6 +71,7 @@ public class CourseController {
     /* http://localhost:8080/ssm-web/course/saveOrUpdateCourse */
     @RequestMapping("/saveOrUpdateCourse")
     public ResponseResult saveOrUpdateCourse(@RequestBody CourseVo courseVo) throws InvocationTargetException, IllegalAccessException {
+        System.out.println(courseVo);
         if (courseVo.getId()!=null){
             courseService.updateCourseOrTeacher(courseVo);
             ResponseResult result = new ResponseResult(true, 200, "更新成功", null);

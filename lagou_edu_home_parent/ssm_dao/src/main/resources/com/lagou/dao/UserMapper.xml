@@ -12,7 +12,7 @@
         PASSWORD,
         STATUS,
         create_time
-        FROM USER
+        FROM user
         <where>
             <if test="true">
                 and is_del != 1
@@ -27,7 +27,7 @@
     </select>
     <!-- 修改用户状态 -->
     <update id="updateUserStatus">
-        UPDATE USER SET STATUS = #{status} where id = #{id};
+        UPDATE user SET STATUS = #{status} where id = #{id};
     </update>
     <!--用户登录-->
     <select id="login" parameterType="com.lagou.domain.User" resultType="com.lagou.domain.User">
